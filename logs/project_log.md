@@ -12,9 +12,9 @@ https://galaxyproject.org/tutorials/rb_rnaseq/
 For more documentation on the scripts, look at the scripts themselves.
 
 
-## Mayo
+## May
 
-### Inicios de mayo
+### First half of May
 
 *Paso 1: Mapeo de datos*
 
@@ -51,7 +51,7 @@ For more documentation on the scripts, look at the scripts themselves.
   una carga grande de trabajo y no permitía que se encolaran trabajos de otros
   usuarios.
 
-### 29 de Mayo
+### May 29th
 - Se platicó del problema con Luis y se agregaron las lineas:
 	#$ -pe openmp {CORES}
 	export OMP_NUM_THREADS={CORES}
@@ -77,9 +77,37 @@ For more documentation on the scripts, look at the scripts themselves.
 - Siguiendo los consejos de Villay se creó esta bitácora para 
   tener un registro para futuras referencias y para evitar futuros errores.
   
-- 13:43. Se inició el job array del proceso de mapeo desde cero (se eliminaron los archivos 
+- 13:43. Se inició el job array 100543 del proceso de mapeo desde cero (se eliminaron los archivos 
   anteriores).
   
 - Se creó el script para el siguiente paso, convertir los archvos de salida de SAM a BAM.
 
 
+### May 30th
+
+- 15:03 The cluster "DNA" had a physical failure and the job array was killed.
+
+### May 31st
+
+- Due to the failure on May 30th, some output files are incomplete due to processes
+  that where writing to them at the time of the failure. It was posible due to the logs
+  to detect which ones where in such state and they where deleted. The commands for that
+  purpose are in a new script: `script.delete_incomplete_output.xsh`.
+  
+- 14:45 The job array was submitted again. The job ID is 156.
+
+### June 8
+
+- The job array looks dead. No new output since May 31st, although the resource consumption 
+  looks normal and no error has been logged (checked with Luis Aguilar). So, we killed the job.
+
+### June 12
+
+- There was a problem with the cleanup script that is now corrected.
+
+- The mapping script was modified. Now prints the date & time of execution start.
+  A new job array was submitted (435)
+
+- It was noticed that it is also convenient to have the date & time when the jobs finish execution,
+  so the job array was killed, incomplete output files where cleaned up, and a new job array with
+  the desired functionality was submitted (437). 
