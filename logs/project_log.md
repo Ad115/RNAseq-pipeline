@@ -111,3 +111,7 @@ For more documentation on the scripts, look at the scripts themselves.
 - It was noticed that it is also convenient to have the date & time when the jobs finish execution,
   so the job array was killed, incomplete output files where cleaned up, and a new job array with
   the desired functionality was submitted (437). 
+
+- The output looket well at first like in the previous execution but once again froze after a while.
+  In order to discard some obscure bug from the Xonsh shell, the script that is submitted is now in pure Python.
+  For this, we killed the previous job array and submitted the modified one (job array 441).
