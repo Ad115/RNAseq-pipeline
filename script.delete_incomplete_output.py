@@ -24,6 +24,20 @@ import subprocess
 #      customized to adapt to the 
 #      specific files you want to target.
 
+def output_of(command):
+    """Execute a command through the shell, get the output as a string.
+    """
+    command = command.split()
+    bytes_output = subprocess.check_output(command)
+    return bytes_output.decode('UTF-8').split('\n')
+# ---
+
+def run(command, **kwargs):
+    """Execute a command through the shell. Doesn't capture output."""
+    command = command.split()
+    subprocess.run(command, **kwargs)
+# ---
+
 def get_output_filename(s): 
     """Extract the output file from the command.
 
@@ -37,11 +51,10 @@ def get_output_filename(s):
 is_interesting = lambda s: 'Executing command' in s
 
 
-for line in !(tail -n1 rnaseq_map*):
+for line in output_of("tail -n1 rnaseq_map*"):
     if is_interesting(line):
         # If the last line in the log is the execution of a command
         # then the command did not finish execution and thus it's 
         # output is incomplete and must be removed.
         filename = get_output_filename(line)
-        rm_command = f"rm --verbose {filename}"
-        subprocess.run(rm_command.split())
+        run(f"rm --verbose {filename}")
