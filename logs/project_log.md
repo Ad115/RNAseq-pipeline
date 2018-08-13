@@ -159,3 +159,7 @@ Thanks to Villay for suggesting the creation of this log.
   
 - In the meantime, the log parts that where in spanish where translated to english so that 
   it can be read by more people (mainly Villay that doesn't know spanish)
+  
+- Also, a migration from Xonsh scripts to pure Python has been started, 
+  mainly thinking about peers that may want to use the scripts and due to
+  debugging difficulties while using them.
