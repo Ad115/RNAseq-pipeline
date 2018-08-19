@@ -162,4 +162,88 @@ Thanks to Villay for suggesting the creation of this log.
   
 - Also, a migration from Xonsh scripts to pure Python has been started, 
   mainly thinking about peers that may want to use the scripts and due to
-  debugging difficulties while using them.
+  debugging difficulties while using them. Oh, and due to the sintax highlighting
+  (not a really big problem but also contributed).
+  
+## August 13
+
+- Luis has already answered, by parts, as Jack said xD:
+    1. The paralell environment wasn't up, and he hadn't noticed. Now it is fixed.
+    2. The issue with the compute host has to do with submitting a job from a compute node.
+       (which is actually weird since at no point did I typed qlogin). This was solved via 
+       qsub by hand instead of letting the script do it.
+    3. The problem with syntax error was pretty obvious and on my face but didn't see it XP.
+       It has to do wit having Python code in a Bash script!! Jaja. After that I had another 
+       typo on the if-else, but it is now fixed.
+       
+- The new job array (317) has been generated and submitted and everything looks fine.
+
+- It had to be stopped and resubmitted (job id 318) due to a typo that made each job ask for
+  8 cores but only use 1.
+  
+- 14hrs It looks like the issue with the hanging jobs was solved, in ~15 minutes there has been a 
+  steady stream of 27 completed jobs and none seems to be hanging out in a loop. It looks like
+  Python was the problem: it is not good for submitting job arrays.
+  
+- 15:26 28 jobs have already finished but I'm a little worried that the last job finished about 
+  an hour ago. Looks like the processes are hanging again. I checked at that time the size of
+  an incomplete job's output file and checked again now and the sizes are the same. Looks like
+  no new results are being generated. I'm gonna let the processes continue and if by 9 o' clock 
+  there have been no new results, I'm killing the job array. The hypothesis now is that somehow 
+  the parallel environment is messing up the jobs and so i'll try to resubmit the job array but 
+  now removing the use of multiple cores per job.
+  
+- 23:44 No new job has finished and the file hasn't grown. I'm killing the job array now. I wrote
+  earlier that I was suspicious of the parallel environment, but while that is still true, now I
+  want to test first if the problem has to do with insufficient RAM memory. So I'm resubmitting
+  the job array with 16G RAM (4x the current memory). Hope it works.
+  
+
+## August 16
+
+- 16hrs Even though the jobs where submitted with very high resources (8 cores & 16G RAM), 
+  the no job finished as of today. So, I made an experiment: Killed the ongoing job array 
+  and logged in into a computing node (with qlogin) and started a job of the ones that tend 
+  to hang out (job id 128). When I launched the job with 8 cores, the output file grew up to 
+  ~300Mb and stayed there for a long time. But when I launched the job with only one core, the
+  job finished succesfully in no time, with the output file steadily growing up to 855Mb.
+  
+- In view of this, it seems the number of cores HISAT2 uses is the problem. So, I'll be relaunching 
+  the job array so that HISAT2 uses only 1 core. Also, I'm changing the generated script back to Python 
+  as it seems the programming language has nothing to do.
+  
+- 16:20 Ressubmitted the job array using one core per job. Didn't change the generated submit script to 
+  Python as it is not necessary. Maybe I'll do that later.
+  
+- 16:25. 52 Jobs have finished already! Looks like the problem is solved.
+
+- 16:36. 87 Jobs have finished. Only the unpaired files remain and seem to be moving well.
+  In retrospective this huge delay (been trying to do the mapping since May) could have been 
+  avoided had I not tried to prematurely optimize by using multiple cores.
+  
+  
+- 23:00 All jobs have finished. Now we proceed to the second step, converting the SAM files to BAM.
+  The script 'script.sam_to_bam.xsh' was executed for this purpose, which generated the submit script
+  and submitted the job array.
+
+
+## August 17
+
+- 11:17 The job array has finished, but inspecting the logs, looks like 12 files where truncated and
+  where not converted. 
+
+- The next step will be to remove those files and redo the mapping job for them.
+
+## August 18 
+
+- The scripts have been translated to pure Python, for the sake of consistency, 
+  computing power and readability. A new script "script.error_cleanup.sam_to_bam.py" has been
+  created to remove the truncated SAM files and was executed successfully.
+  
+- 19:00 The mapping process has been submitted to redo those files that where left truncated (and only those). 
+
+## August 19
+
+- 3:41hrs The process has finished. All files now ae mapped to the 
+  genome and the mappings are compressed and sorted in  BAM files. 
+  The next step is now to identify the mapped sites

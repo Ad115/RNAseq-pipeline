@@ -27,8 +27,8 @@ import subprocess
 def output_of(command):
     """Execute a command through the shell, get the output as a string.
     """
-    command = command.split()
-    bytes_output = subprocess.check_output(command)
+    executed_command = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+    bytes_output = executed_command.stdout
     return bytes_output.decode('UTF-8').split('\n')
 # ---
 
