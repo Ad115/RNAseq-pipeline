@@ -247,3 +247,25 @@ Thanks to Villay for suggesting the creation of this log.
 - 3:41hrs The process has finished. All files now ae mapped to the 
   genome and the mappings are compressed and sorted in  BAM files. 
   The next step is now to identify the mapped sites
+  
+- Investigating the next step, I found another protocol (https://www.biostars.org/p/207680/#207685)
+  which is tailored speciffically for long non-coding RNAs, which is more complete than the 
+  previous one (https://davetang.org/muse/2017/10/25/getting-started-hisat-stringtie-ballgown/).
+  
+- This made me realize I didn't do quality check on the FASTQ files, so this is what's next.
+
+## August 27
+
+- The script for quality check using FastQC was completed and submitted. The reports are being 
+  saved in the 'quality' folder. The fact that all BAM files are now in the same folder 
+  simplified greatly this process. 
+  
+- I discovered that (given that there are 281 SAM files) there exists a tool called MultiQC that
+  handles the job of merging the results of the analysis of each sample, so that there's no need
+  to analyze separatedly all ~300 sample reports. This is the next step.
+  
+- The FastQC checks have finished and the MultiQC report has been generated (The MultiQC step is 
+  probably worth a script for it's own). Resulting in a large number of low quality reads and to 
+  the realization that a necessary trimming step has been ommited, given that lots of reads contain 
+  the adaptor. Also, it is necessary to ask Luis for the installation of "featureCount" to quantify 
+  long non-coding RNAs. 
