@@ -2,5 +2,6 @@
 index/
 map/
 quality/
+data/
 /logs/2018*
 rnaseq_map*

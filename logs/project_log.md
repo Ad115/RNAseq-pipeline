@@ -268,4 +268,21 @@ Thanks to Villay for suggesting the creation of this log.
   probably worth a script for it's own). Resulting in a large number of low quality reads and to 
   the realization that a necessary trimming step has been ommited, given that lots of reads contain 
   the adaptor. Also, it is necessary to ask Luis for the installation of "featureCount" to quantify 
-  long non-coding RNAs. 
+  long non-coding RNAs, on the other hand, I have been reading that STAR is preffered over HISAT2 for 
+  mapping, so it may be possible that the mapping will be redone in the near future.
+  
+## September 6
+
+- Diving into the raw sequences and files, I couldn't identify the specific adaptor 
+  sequences used for each file, so I'm asking Varela for help tomorrow when I go to 
+  the lab. For now, I'm cleaning up the workflow in preparation for that, so that the 
+  quality check and trimming goes first and the mapping is done with STAR.
+  
+- First, I'm doing a script to search all the input FASTQ files and link them on a folder
+  so that the actual analysis scripts don't get cluttered with the code for searching the 
+  files. 
+  
+- The script that does that is `script.fetch_data.py`, it ran successfully.
+
+- The quality check was edited to run the analysis on that data. It ran successfully. 
+  It only remains to check where are the adaptors to be trimmed for each file.

@@ -8,7 +8,7 @@ Author: Andrés García García @ May 2018
 
 About the project
 -----------------
-NOTE: This is the third script in the pipeline of the project.
+NOTE: This is the first script in the pipeline of the project.
 
 We are trying to detect if there are changes in the expression of
 long non-coding RNAs between the left and right hemisphere of a mouse's
@@ -19,8 +19,8 @@ https://galaxyproject.org/tutorials/rb_rnaseq/
 
 The data
 --------
-The input data for the current script are the BAM files resulting of the
-alignment of the RNAseq expression data to the reference genome.
+The input data for the current script are the raw FASTQ files from the
+RNAseq experiment.
 
     
 The analysis
@@ -31,8 +31,8 @@ https://www.biostars.org/p/207680/#207685
 
 Procedure
 ---------
-All the BAM files are already in a single folder (map/), so, it is enough only to
-invoke fastqc on all of them (with: `fastqc map/*.bam`).
+All the FASTQ files are already in a single folder (data/), so, we invoke
+fastq on each of them.
 
 Why do we need to generate another script? In order to get computing resources, we need to
 enqueue the job through the SGE tasks system, this is done by specifying the task in a script.
@@ -62,17 +62,21 @@ def get_output(command):
 
 #### <<<<<< MAIN PROCEDURE >>>>>>> ####
 
+data_path = Path('./data').resolve()
+output_path = Path('./quality').resolve()
 
 ## 1. --- Generate the commands.
 #          ... & search the files.
-input_files = [str(file) for file in Path('./map').glob('*.bam')]
-output_path = Path('./quality').resolve()
+input_files = (str(file) 
+                   for file in data_path.glob('*.fastq'))
+
 
 command_template = f"fastqc -o {output_path} {{inputf}}"
-commands = [command_template.format(inputf=file)
-            for file in input_files]
+commands = [command_template.format(inputf=file) 
+                for file in input_files]
+
 commands_str = "\n".join( f"commands[{i+1}]='{s}'" 
-                          for i,s in enumerate(commands) )
+                              for i,s in enumerate(commands) )
 
 
 

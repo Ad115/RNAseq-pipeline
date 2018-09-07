@@ -19,12 +19,14 @@ according to the kind of data in order to maximize paralellism and keep the scri
 
 The workflow at the moment consists of the next steps:
 
-    1. Mapping of the raw reads to the reference (*Mus musculus*) genome using HISAT2.
-        The script ``script.rnaseq_map.py`` is involved in this process.
-    2. Conversion of the SAM output to BAM using SAMTools.
-        The script ``script.sam_to_bam.py`` is involved in this process.
-    3. Quality check of the reads using FastQC of the BAM files. (this step
-       was delayed for convenience). The script ``script.quality_check.py`` is 
+    0. Fetching of the data. First, we need to find the FASTQ files. This is done
+       with the script ``script.fetch_data.py``.
+
+    1. Quality check of the reads using FastQC . The script ``script.quality_check.py`` is 
        involved in this process.
+    2. Mapping of the reads to the reference (*Mus musculus*) genome using HISAT2.
+        The script ``script.rnaseq_map.py`` is involved in this process.
+    3. Conversion of the SAM output to BAM using SAMTools.
+        The script ``script.sam_to_bam.py`` is involved in this process.
 
 For more documentation on the scripts, look at the scripts themselves.
