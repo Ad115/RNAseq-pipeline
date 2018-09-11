@@ -113,9 +113,10 @@ standard library. Also on generator functions.
 """
 
 from pathlib import Path
+from typing import Generator, Union
 
 
-def search_files(data_path):
+def search_files(data_path: Union[str, Path]) -> Generator[Path, None, None]:
     """Search for the data files for each sample.
     
     Input: The path to the data folder (as pathlib.Path object).
@@ -159,7 +160,7 @@ def search_files(data_path):
 
 
 data_path = Path('../RNAseq_data').resolve()
-output_path = Path('./data').resolve()
+output_path = Path('./raw_data').resolve()
 
 # 1. --- Find the raw data files.
 #        The data is in the directory "../RNAseq_data" (a symbolic link to the actual data.)

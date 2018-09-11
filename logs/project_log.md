@@ -286,3 +286,34 @@ Thanks to Villay for suggesting the creation of this log.
 
 - The quality check was edited to run the analysis on that data. It ran successfully. 
   It only remains to check where are the adaptors to be trimmed for each file.
+  
+## September 7
+
+- The adaptors where found in a folder called `adaptors` that resided where the raw data was.
+  Following advise found on internet, the adaptors fasta files where concatenated into a single 
+  large file that now resides in 'raw_data/adaptors'.
+  
+- The script for trimming was made `script.trimming.py` and then was left to run overnight.
+
+## September 8
+
+- The trimming process was completed but due to a bug in the names of the output files, the data
+  of two outputs was sent to a single one (and thus was scrambled), which rendered it useless.
+  The new job was submitted (job id 1704) and is now running.
+  
+- While the job was running, the scripts where modified in order to be able to pass parameters 
+  from the command line (added a CLI with the Python 'click' library), in this way, the scripts 
+  will not have to be modified because of change of folder names or to tweak just one parameter.
+  
+- Having finished the trimming process, we proceed with the mapping, following the advice given in
+  https://www.biostars.org/p/199938/ we are using only the paired output files.
+  
+## September 9
+
+- The mapping was finished, and the quality checks where run on the output. In the report one
+  can see that the adapters where sucesfully trimmed but the sequences have an awful lot of repetition. 
+  
+## September 10
+
+- Consulting with Dr. Varela, he told me that that was problematic, but that maybe we could extract
+  some useful information from that, so we need to check with Vijay.
