@@ -317,3 +317,7 @@ Thanks to Villay for suggesting the creation of this log.
 
 - Consulting with Dr. Varela, he told me that that was problematic, but that maybe we could extract
   some useful information from that, so we need to check with Vijay.
+  
+## September 16
+
+- The SAM to BAM convertion script was reformatted to be run with the new files and the process is now running.
