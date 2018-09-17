@@ -321,3 +321,5 @@ Thanks to Villay for suggesting the creation of this log.
 ## September 16
 
 - The SAM to BAM convertion script was reformatted to be run with the new files and the process is now running.
+- The processes completed without errors and the SAM files where deleted as they are much larger and contain the 
+  same information as the respective BAM.
